@@ -19,24 +19,13 @@
 using namespace std;
 using namespace rapidjson;
 
-/*
-const char* ssid = "Telia-4E03ED";
-const char* pass = "20B99E6238";
 
-const char* userId = "danielsandblom98@gmail.com";
-const char* brokerPass = "88fff2dd";
-const char* broker = "mqtt.dioty.co";
-
-const char* outTopicTemp = "/danielsandblom98@gmail.com/temp";
-const char* outTopicLED = "/danielsandblom98@gmail.com/led";
-
-*/
 boolean status = false;
 long currentTemp = 0;
 long firstTime = 0, lastTime = 0;
 char messagess[50];
 
-//const char* selctedTopic = "/danielsandblom98@gmail.com/led";
+
 
 WiFiClient espClient;
 PubSubClient client(espClient);
