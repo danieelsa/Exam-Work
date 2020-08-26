@@ -2,30 +2,18 @@
 #include <WiFi.h>
 #include <PubSubClient.h>
 #include <iostream>
-#include <rapidjson/document.h>
-#include <rapidjson/writer.h>
-#include <rapidjson/stringbuffer.h>
-#include <rapidjson/filereadstream.h>
-#include <rapidjson/istreamwrapper.h>
-#include <rapidjson/encodedstream.h>
 #include <fstream>
-#include <json/value.h>
-#include <json/json.h>
 #include <assert.h>
 #include <cstdio>
 #include "info.h"
 
 
 using namespace std;
-using namespace rapidjson;
-
 
 boolean status = false;
 long currentTemp = 0;
 long firstTime = 0, lastTime = 0;
 char messagess[50];
-
-
 
 WiFiClient espClient;
 PubSubClient client(espClient);
@@ -64,12 +52,11 @@ void reconnect(){
 }
 
 int get_temperature(long time) {
-  // calls every 2 second/ 2000 milis.
+
   static int inc = 0;
   static float ofs = 2;
   if(inc <= 40){
     float min = 30, max = 33;
-    
     return (inc += ofs) + (min + 1) + (((float)rand()) / (float)RAND_MAX) * (max - (min + 1));
   }
   else{
@@ -106,21 +93,15 @@ void callback(char* topic, byte* payload, unsigned int length){
     Serial.println();
   }
 
-
 void setup() {
-  //json setup.
-
 
   // put your setup code here, to run once:
   pinMode(BUILTIN_LED, OUTPUT);
   Serial.begin(9600);
-  //Serial.println(d["ssid"].GetString());
   setupWiFi();
   client.setServer(broker, 1883);
-  //auto lambda = [](char* topic, byte* payload, unsigned int length){;};
   client.setCallback(callback);
 }
-
 
 void loop() {
   // put your main code here, to run repeatedly:
